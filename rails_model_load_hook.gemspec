@@ -7,11 +7,11 @@ require 'rails_model_load_hook/version'
 Gem::Specification.new do |s|
 	s.name        = 'rails_model_load_hook'
 	s.version     = RailsModelLoadHook::VERSION
-	s.authors     = ['TODO: Your name']
-	s.email       = ['TODO: Your email']
-	s.homepage    = 'TODO'
-	s.summary     = 'TODO: Summary of RailsModelLoadHook.'
-	s.description = 'TODO: Description of RailsModelLoadHook.'
+	s.authors     = ['Alexander Senko']
+	s.email       = ['Alexander.Senko@gmail.com']
+#	s.homepage    = 'TODO'
+	s.summary     = 'Load hook for Rails model classes.'
+#	s.description = 'TODO: Description of RailsModelLoadHook.'
 
 	s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
