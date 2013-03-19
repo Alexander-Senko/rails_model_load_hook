@@ -1,3 +1,22 @@
-= RailsModelLoadHook
+= Loading hook for Rails models
 
-This project rocks and uses MIT-LICENSE.
+Adds <tt>:model_class</tt> loading hook for every <tt>ActiveRecord</tt> descendant.
+
+
+== Installation
+
+Just include the gem in <tt>Gemfile</tt> and <tt>bundle</tt> it.
+
+
+== Usage
+
+  ActiveSupport.on_load :model_class do
+    # Put the code for your model here
+  end
+
+
+== License
+
+This project uses MIT-LICENSE.
+
+© Alexander Senko, SoftPro Ltd.
