@@ -10,8 +10,8 @@ module RailsModelLoadHook::ActiveRecord
 
 		module ClassMethods
 			def inherited_with_on_load child
-				ActiveSupport.run_load_hooks :model_class, child
 				inherited_without_on_load child
+				ActiveSupport.run_load_hooks :model_class, child
 			end
 		end
 	end
