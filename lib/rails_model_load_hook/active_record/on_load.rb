@@ -1,16 +1,12 @@
-require 'active_support/concern'
-
 module RailsModelLoadHook::ActiveRecord
-	module OnLoad
-		extend ActiveSupport::Concern
-
-		module ClassMethods
+	concern :OnLoad do
+		class_methods do
 			private
 
-			def inherited child
+			def load_schema!(...)
 				super
 
-				ActiveSupport.run_load_hooks :model_class, child
+				ActiveSupport.run_load_hooks :model_class, self
 			end
 		end
 	end
