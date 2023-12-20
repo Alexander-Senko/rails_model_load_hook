@@ -1,5 +1,5 @@
-module RailsModelLoadHook::ActiveRecord
-	concern :OnLoad do
+module RailsModelLoadHook
+	concern :ActiveRecord do
 		class_methods do
 			private
 
