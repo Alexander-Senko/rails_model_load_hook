@@ -1,24 +1,26 @@
-$:.push File.expand_path('../lib', __FILE__)
+require_relative "lib/rails_model_load_hook/version"
+require_relative 'lib/rails_model_load_hook/authors'
 
-# Maintain your gem's version:
-require 'rails_model_load_hook/version'
+Gem::Specification.new do |spec|
+	spec.platform    = Gem::Platform::RUBY
+	spec.name        = "rails_model_load_hook"
+	spec.version     = RailsModelLoadHook::VERSION
+	spec.authors     = RailsModelLoadHook::AUTHORS.filter_map &:name
+	spec.email       = RailsModelLoadHook::AUTHORS.filter_map &:email
+	spec.homepage    = "#{RailsModelLoadHook::AUTHORS.filter_map(&:github_url).first}/#{spec.name}"
+	spec.summary     = 'Load hook for Rails model classes.'
+	spec.description = 'Adds :model_class load hook for every ActiveRecord descendant.'
+	spec.license     = "MIT"
 
-# Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
-	s.name        = 'rails_model_load_hook'
-	s.version     = RailsModelLoadHook::VERSION
-	s.authors     = [ 'Alexander Senko' ]
-	s.email       = [ 'Alexander.Senko@gmail.com' ]
-	s.homepage    = 'https://github.com/Alexander-Senko/rails_model_load_hook'
-	s.summary     = 'Load hook for Rails model classes.'
-	s.description = 'Adds :model_class load hook for every ActiveRecord descendant.'
-	s.license     = 'MIT'
+	spec.metadata["homepage_uri"]    = spec.homepage
+	spec.metadata["source_code_uri"] = spec.homepage
+	spec.metadata["changelog_uri"]   = "#{spec.metadata['source_code_uri']}/CHANGELOG.md"
 
-	s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
+	spec.files = Dir.chdir(File.expand_path(__dir__)) do
+		Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md", 'CHANGELOG.md']
+	end
 
-	s.required_ruby_version = '>= 2.0'
+	spec.required_ruby_version = '>= 2.7'
 
-	s.add_dependency 'rails', '>= 4.1'
-
-	s.add_development_dependency 'sqlite3'
+	spec.add_dependency 'rails', '~> 7.1'
 end
