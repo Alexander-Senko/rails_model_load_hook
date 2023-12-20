@@ -1,3 +1,3 @@
 module RailsModelLoadHook
-	VERSION = '0.3.0.alpha'
+	VERSION = '0.2.1'
 end
