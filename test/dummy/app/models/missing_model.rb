@@ -1,0 +1,2 @@
+class MissingModel < ApplicationRecord
+end
