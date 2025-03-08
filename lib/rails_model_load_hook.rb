@@ -1,6 +1,8 @@
-require "rails_model_load_hook/version"
-require "rails_model_load_hook/engine"
+# frozen_string_literal: true
 
-module RailsModelLoadHook
+require 'rails_model_load_hook/version'
+require 'rails_model_load_hook/engine'
+
+module RailsModelLoadHook # :nodoc:
 	# Your code goes here...
 end

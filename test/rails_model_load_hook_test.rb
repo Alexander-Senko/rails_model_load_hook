@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 require 'minitest/autorun'
 
 describe RailsModelLoadHook do
@@ -13,7 +15,7 @@ describe RailsModelLoadHook do
 		end
 	end
 
-	module SharedExamples
+	using Module.new { # shared examples
 		refine Minitest::Spec.singleton_class do
 			def passing
 				it 'passes the hook' do
@@ -27,18 +29,16 @@ describe RailsModelLoadHook do
 				end
 			end
 		end
-	end
-
-	using SharedExamples
+	}
 
 	describe 'with existing models' do
-		let(:model) { DummyModel.tap { _1.new } }
+		let(:model) { DummyModel.tap &:new }
 
 		passing
 	end
 
 	describe 'with inherited models' do
-		let(:model) { InheritedModel.tap { _1.new } }
+		let(:model) { InheritedModel.tap &:new }
 
 		passing
 	end

@@ -1,4 +1,6 @@
-module RailsModelLoadHook
+# frozen_string_literal: true
+
+module RailsModelLoadHook # :nodoc:
 	concern :ActiveRecord do
 		class_methods do
 			private
