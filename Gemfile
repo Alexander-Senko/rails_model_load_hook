@@ -14,5 +14,5 @@ gem "sprockets-rails"
 # gem "debug", ">= 1.0.0"
 
 group :test do
-	gem 'simplecov'
+	gem 'simplecov', require: false
 end
