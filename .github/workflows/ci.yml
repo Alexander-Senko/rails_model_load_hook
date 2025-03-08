@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - '*.txt'
+
+  push:
+    branches: [ master ]
+    tags-ignore:
+      - '*'
+    paths:
+      - lib/**
+      - app/**
+      - config/**
+      - test/**
+      - Gemfile*
+      - '*.gemspec'
+      - .github/workflows/ci.yml
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }}, Rails ${{ matrix.rails }}
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 3.4
+          - 3.3
+          - 3.2
+
+          - truffleruby-head
+          - truffleruby
+
+        rails:
+          - 8.0
+          - 7.2
+          - 7.1
+
+        include:
+          - { ruby: head, rails: head }
+
+        exclude:
+          # TruffleRuby
+          - { ruby: 'truffleruby-head', rails: '8.0'  }
+          - { ruby: 'truffleruby',      rails: '8.0'  }
+
+    env:
+      RAILS_VERSION: "${{ matrix.rails }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version:  ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - uses: paambaati/codeclimate-action@v9
+        env:
+          CC_TEST_REPORTER_ID: d91ea07bfd9da7e6a9e51c18727570861cb01440110457eec4a5480496bed3c2
+        with:
+          coverageCommand: bundle exec rails test
+        continue-on-error: ${{ matrix.allow-fail || false }}
+        id: test
+
+      - name: Lint code for consistent style
+        run:  bin/rubocop -f github
+        if:   ${{ matrix.ruby == 'head' && matrix.rails == 'head' }}
+
+      - name: >-
+          Test ${{ steps.test.outcome }}
+        run: |
+          ruby -v
+          bin/rails -v
